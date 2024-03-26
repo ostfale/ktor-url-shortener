@@ -17,10 +17,16 @@
 
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <kotlinx-html-jvm.version>0.11.0</kotlinx-html-jvm.version>
 
-        <logback_version>1.4.14</logback_version>
+        <logback_version>1.5.3</logback_version>
         <slf4j_version>2.0.9</slf4j_version>
         <main.class>de.ostfale.ApplicationKt</main.class>
+
+        <plugin.versions.version>2.16.2</plugin.versions.version>
+        <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
+        <exec-maven-plugin.version>3.2.0</exec-maven-plugin.version>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
     </properties>
 
     <dependencies>
@@ -37,7 +43,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-html-jvm</artifactId>
-            <version>0.10.1</version>
+            <version>${kotlinx-html-jvm.version}</version>
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>
@@ -110,7 +116,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -125,7 +131,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
+                <version>${maven-assembly-plugin.version}</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -146,6 +152,34 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.9.0,)</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>21</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${plugin.versions.version}</version>
             </plugin>
         </plugins>
     </build>
