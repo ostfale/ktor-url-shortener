@@ -46,7 +46,7 @@ fun Application.module(testing: Boolean = false) {
 }
 
 
-inline suspend fun PipelineContext<Unit, ApplicationCall>.shortenUrl() {
+suspend inline fun PipelineContext<Unit, ApplicationCall>.shortenUrl() {
     val req = call.request
     val host = "%s://%s:%s".format(req.origin.scheme, req.host(), req.port())
     val data = call.receiveParameters()
